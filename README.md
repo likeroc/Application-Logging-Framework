@@ -29,14 +29,6 @@ In order to use the ApplicationLog class there are 3 things you have to do
 - The utility class checks against the Exception_Logging__c custom setting to see if the type of message should be logged based on their current values allowing support staff to turn on/off debug levels
 - Scheduled nightly batch job to purge records older than x days (from custom setting)
 
-try {
-  throw new MyException('some bad stuff just happened');
-}
-catch(MyException e) {
-  UTIL_Logging.ExceptionLog ex = new UTIL_Logging.ExceptionLog(ex, 'MyClass', 'MyMethod', '', UTIL_Logging.DEBUG_LEVEL_ERROR);
-  UTIL_Logging.logException(ex);
-}
-
 **Exception Logging Setting**
 
 | **Field** | **Type** | **Required** | **Description** |
@@ -80,34 +72,34 @@ Requires two classes:
 ***Application Log User Interface***
 
 **Exception Log - Warn**
-
+```
 try {
 	throw UTIL_Logging.createMappingException('This could be bad');
 } catch (Exception ex) {  
     UTIL_Logging.ExceptionLog exLog = new UTIL_Logging.ExceptionLog(ex, 'MyClass', 'MyMethod', '', UTIL_Logging.DEBUG_LEVEL_WARN);
   	UTIL_Logging.logException(exLog);
 }
-
+```
 The screenshot below shows an example for information logged by the application that developers are responsible for unit testing as part of their test classes. In the example below the developer is logging information about an Apex batch job for auditing purposes.  They have included time taken for the job to run and some useful attributes for support.
 ![Warning](screenShots/Warn_Log.png)
 
 **Exception Log - Error**
-
+```
 try {
 	throw UTIL_Logging.createMappingException('This is bad');
 } catch (Exception ex) {  
     UTIL_Logging.ExceptionLog exLog = new UTIL_Logging.ExceptionLog(ex, 'MyClass', 'MyMethod', '', UTIL_Logging.DEBUG_LEVEL_ERROR);
   	UTIL_Logging.logException(exLog);
 }
-
+```
 The screenshot below shows an example for errors logged by the application that developers are responsible for unit testing as part of their test classes
 ![Error](screenShots/Error_Log.png)
 
 **Integration Log**
-
+```
 HttpRequest req = new HttpRequest();
 req.setbody('A Inbound Request Body');
 UTIL_Logging.createIntegrationLog('INBOUND', req.getBody(), 'Inbound Lead', 'ETL', 'UniqueTransactionId20xx');
-
+```
 The screenshot below shows an example for errors logged by the application that developers are responsible for unit testing as part of their test classes
 ![Error](screenShots/Integration_Log.png)
