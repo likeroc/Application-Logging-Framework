@@ -5,7 +5,7 @@
 */
 @isTest
 private class PurgeLogsTest {
-  
+
 
   static testmethod void testExceptionsPurgeBatch() {
 
@@ -18,14 +18,14 @@ private class PurgeLogsTest {
     //Create 10 Exception log records
     for (Integer i=1; i<=10; i++) {
 
-      //Initialize a custom exception 
+      //Initialize a custom exception
       Exception e = UTIL_Logging.createMappingException(
           'Test Mapping Error: ' + +' ' + String.ValueOf(i)
       );
 
       //Create a exception log record
       UTIL_Logging.ExceptionLog log = new UTIL_Logging.ExceptionLog(
-        e, 
+        e,
         'PurgeLogsTest',
         'testExceptionsPurgeBatch',
         '',
@@ -33,7 +33,7 @@ private class PurgeLogsTest {
       );
 
       //add exception log to list
-      logs.add(log); 
+      logs.add(log);
     }
 
     //Insert exception logs
@@ -59,18 +59,16 @@ private class PurgeLogsTest {
 
     //Initialize the custom setting records
     initializeCustomSettings();
-    
+
     //Create integration log
-    Map <String,Schema.RecordTypeInfo> integrationLogRecordTypes = Integration_Log__c.sObjectType.getDescribe().getRecordTypeInfosByName();
-    Id inboundRT = integrationLogRecordTypes.get('INBOUND').getRecordTypeId();
     UTIL_Logging.integrationLogId = UTIL_Logging.createIntegrationLog(
-                                                      inboundRT, 
+                                                      'INBOUND',
                                                       'Test Payload', 
-                                                      'Test Process Name', 
-                                                      'Test Source Name', 
+                                                      'Test Process Name',
+                                                      'Test Source Name',
                                                       'Test Transaction Id'
                                                     );
-            
+
     //Verify a integration logs was created
     Integer logCount= [SELECT COUNT() FROM Integration_Log__c];
     System.assertEquals(logCount, 1);
@@ -86,7 +84,7 @@ private class PurgeLogsTest {
     logCount= [SELECT COUNT() FROM Integration_Log__c];
     System.assertEquals(logCount, 0);
   }
-  
+
   private static void initializeCustomSettings()
   {
     //Create exception logging Custom Setting Record
@@ -99,8 +97,8 @@ private class PurgeLogsTest {
                                                             Warning__c = true,
                                                             Debug__c = true,
                                                             Error__c = true
-                                                        );        
-    //insert Exception_Logging__c 
+                                                        );
+    //insert Exception_Logging__c
     insert exceptionParams;
 
     //Create integration log custom setting record

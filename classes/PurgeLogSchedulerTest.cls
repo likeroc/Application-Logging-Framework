@@ -17,10 +17,8 @@ private class PurgeLogSchedulerTest {
      initializeCustomSettings();
 
       /*Create Integration Log*/
-      Map <String,Schema.RecordTypeInfo> integrationLogRecordTypes = Integration_Log__c.sObjectType.getDescribe().getRecordTypeInfosByName();
-      Id inboundRT = integrationLogRecordTypes.get('INBOUND').getRecordTypeId();
       UTIL_Logging.integrationLogId = UTIL_Logging.createIntegrationLog(
-                                                         inboundRT,
+                                                         'INBOUND',
                                                          'Test Payload',
                                                          'Test Process Name',
                                                          'Test Source Name',
