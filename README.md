@@ -24,7 +24,7 @@ In order to use the ApplicationLog class there are 3 things you have to do
   -
     - public static void logMessage(String logLevel, String sourceClass, String sourceFunction, String referenceId, String referenceInfo, String logMessage, String payLoad, Exception ex, long timeTaken)
     - public static void logMessage(ApplicationLogWrapper appLog)
-    - public static void logMessage(List\&lt;ApplicationLogWrapper\&gt; appLogs)
+    - public static void logMessage(List\<ApplicationLogWrapper\> appLogs)
 - The utility class checks against the System\_Settings\_\_c custom setting to see if the type of message should be logged based on their current values allowing support staff to turn on/off debug levels
 - Scheduled nightly batch job to purge records older than x days (from custom setting)
 
@@ -63,9 +63,9 @@ publicclass ApplicationLogWrapper {
 
 /\*------------------------------------------------------------
 
-Author:        \&lt;company\&gt; Developer
+Author:        \<company\> Developer
 
-Company:       \&lt;company\&gt;
+Company:       \<company\>
 
 Description:   A wrapper class for application log messages
 
@@ -73,7 +73,7 @@ Test Class:         GlobalUtility\_Test
 
 History
 
-\&lt;Date\&gt;      \&lt;Authors Name\&gt;     \&lt;Brief Description of Change\&gt;
+\<Date\>      \<Authors Name\>     \<Brief Description of Change\>
 
 ------------------------------------------------------------\*/
 
@@ -104,9 +104,9 @@ History
 
 /\*------------------------------------------------------------
 
-Author:        \&lt;Authors Name\&gt;
+Author:        \<Authors Name\>
 
-Company:       \&lt;company\&gt;
+Company:       \<company\>
 
 Description:   ApplicationLog – log a message to the application log
 
@@ -114,7 +114,7 @@ Test Class:
 
 History
 
-\&lt;Date\&gt;      \&lt;Authors Name\&gt;     \&lt;Brief Description of Change\&gt;
+\<Date\>      \<Authors Name\>     \<Brief Description of Change\>
 
 ------------------------------------------------------------\*/
 
@@ -124,9 +124,9 @@ publicstaticvoid logMessage(String logLevel, String sourceClass, String sourceFu
 
     /\*------------------------------------------------------------
 
-    Author:        \&lt;Authors Name\&gt;
+    Author:        \<Authors Name\>
 
-    Company:       \&lt;company\&gt;
+    Company:       \<company\>
 
     Description:   Overloaded Method to log a single record to the application log
 
@@ -148,7 +148,7 @@ publicstaticvoid logMessage(String logLevel, String sourceClass, String sourceFu
 
     History
 
-    \&lt;Date\&gt;      \&lt;Authors Name\&gt;     \&lt;Brief Description of Change\&gt;
+    \<Date\>      \<Authors Name\>     \<Brief Description of Change\>
 
     ------------------------------------------------------------\*/
 
@@ -172,7 +172,7 @@ publicstaticvoid logMessage(String logLevel, String sourceClass, String sourceFu
 
         msg.Timer = timeTaken;
 
-        // System.Debug(&#39;@@@AppMsg 1&#39;);
+        // System.Debug('@@@AppMsg 1');
 
         logMessage( msg );
 
@@ -184,9 +184,9 @@ publicstaticvoid logMessage(String logLevel, String sourceClass, String sourceFu
 
     /\*------------------------------------------------------------
 
-    Author:        \&lt;Authors Name\&gt;
+    Author:        \<Authors Name\>
 
-    Company:       \&lt;company\&gt;
+    Company:       \<company\>
 
     Description:   Overloaded Method to log a single record to the application log table
 
@@ -194,29 +194,29 @@ publicstaticvoid logMessage(String logLevel, String sourceClass, String sourceFu
 
     History
 
-    \&lt;Date\&gt;      \&lt;Authors Name\&gt;     \&lt;Brief Description of Change\&gt;
+    \<Date\>      \<Authors Name\>     \<Brief Description of Change\>
 
     ------------------------------------------------------------\*/
 
-        List\&lt;ApplicationLogWrapper\&gt; appLogs = new List\&lt;ApplicationLogWrapper\&gt;();
+        List\<ApplicationLogWrapper\> appLogs = new List\<ApplicationLogWrapper\>();
 
         appLogs.add ( appLog );
 
-        // System.Debug(&#39;@@@AppMsg 2&#39;);
+        // System.Debug('@@@AppMsg 2');
 
         logMessage ( appLogs );
 
     }
 
-    publicstaticvoid logMessage(List\&lt;ApplicationLogWrapper\&gt; appLogs)
+    publicstaticvoid logMessage(List\<ApplicationLogWrapper\> appLogs)
 
     {
 
     /\*------------------------------------------------------------
 
-    Author:        \&lt;Authors Name\&gt;
+    Author:        \<Authors Name\>
 
-    Company:       \&lt;company\&gt;
+    Company:       \<company\>
 
     Description:   Overloaded Method to log multiple records to the application log
 
@@ -226,13 +226,13 @@ publicstaticvoid logMessage(String logLevel, String sourceClass, String sourceFu
 
     History
 
-    \&lt;Date\&gt;      \&lt;Authors Name\&gt;     \&lt;Brief Description of Change\&gt;
+    \<Date\>      \<Authors Name\>     \<Brief Description of Change\>
 
     ------------------------------------------------------------\*/
 
-        List\&lt;Application\_Log\_\_c\&gt; insertAppLogs = new List\&lt;Application\_Log\_\_c\&gt;();
+        List\<Application\_Log\_\_c\> insertAppLogs = new List\<Application\_Log\_\_c\>();
 
-        // System.Debug(&#39;@@@AppMsg 3&#39;);
+        // System.Debug('@@@AppMsg 3');
 
         for(ApplicationLogWrapper appLog : appLogs){
 
@@ -268,25 +268,25 @@ publicstaticvoid logMessage(String logLevel, String sourceClass, String sourceFu
 
             boolean validInsert = false;
 
-            if(appLog.debugLevel == GlobalConstants.DEBUG &amp;&amp; System\_Settings\_\_c.getInstance().Debug\_\_c){
+            if(appLog.debugLevel == GlobalConstants.DEBUG && System\_Settings\_\_c.getInstance().Debug\_\_c){
 
                 validInsert = true;
 
             } else if
 
-            (appLog.debugLevel == GlobalConstants.ERROR &amp;&amp; System\_Settings\_\_c.getInstance().Error\_\_c){
+            (appLog.debugLevel == GlobalConstants.ERROR && System\_Settings\_\_c.getInstance().Error\_\_c){
 
                 validInsert = true;
 
             } else if
 
-            (appLog.debugLevel == GlobalConstants.INFO &amp;&amp; System\_Settings\_\_c.getInstance().Info\_\_c){
+            (appLog.debugLevel == GlobalConstants.INFO && System\_Settings\_\_c.getInstance().Info\_\_c){
 
                 validInsert = true;
 
             } else if
 
-            (appLog.debugLevel == GlobalConstants.WARNING &amp;&amp; System\_Settings\_\_c.getInstance().Warning\_\_c){
+            (appLog.debugLevel == GlobalConstants.WARNING && System\_Settings\_\_c.getInstance().Warning\_\_c){
 
                 validInsert = true;
 
@@ -296,7 +296,7 @@ publicstaticvoid logMessage(String logLevel, String sourceClass, String sourceFu
 
                 insertAppLogs.add(log);
 
-                System.Debug(&#39;Inserted Log from &#39; + log.source\_\_c + &#39; debug level: &#39; + log.Debug\_Level\_\_c);
+                System.Debug('Inserted Log from '   log.source\_\_c   ' debug level: '   log.Debug\_Level\_\_c);
 
             }
 
@@ -319,7 +319,7 @@ Requires two classes – a batchable class to do the work, and a schedulable cla
 
 **purgeApplicationLog**
 
-global class purgeApplicationLog implements Database.Batchable\&lt;sObject\&gt;{
+global class purgeApplicationLog implements Database.Batchable\<sObject\>{
 
         global final String Query;
 
@@ -335,7 +335,7 @@ global class purgeApplicationLog implements Database.Batchable\&lt;sObject\&gt;{
 
     }
 
-    global void execute(Database.BatchableContext BC,List\&lt;Application\_Log\_\_c\&gt; scope){
+    global void execute(Database.BatchableContext BC,List\<Application\_Log\_\_c\> scope){
 
             delete scope;
 
@@ -353,7 +353,7 @@ global class AppLogPurgeScheduler implements Schedulable{
 
         String logPurgeDays = string.valueof(System\_Settings\_\_c.getInstance().Log\_Purge\_Days\_\_c);
 
-        String query = &#39;select id from Application\_Log\_\_c where LastModifiedDate != LAST\_N\_DAYS:&#39; + logPurgeDays;
+        String query = 'select id from Application\_Log\_\_c where LastModifiedDate != LAST\_N\_DAYS:'   logPurgeDays;
 
         purgeApplicationLog delBatch = new purgeApplicationLog(query);
 
@@ -380,13 +380,13 @@ Test.startTest();
 
         try{
 
-               throw new MyException(&#39;some bad stuff just happened&#39;);
+               throw new MyException('some bad stuff just happened');
 
         }
 
         catch(MyException e){
 
-              ApplicationLog.logMessage(&#39;Error&#39;, &#39;ApplicationLogSample&#39;, &#39;SampleMethod&#39;, &#39;Some reference Id&#39;, &#39;Some reference info&#39;, &#39;Some log message details&#39;, &#39;some payload details&#39;, e, 0);
+              ApplicationLog.logMessage('Error', 'ApplicationLogSample', 'SampleMethod', 'Some reference Id', 'Some reference info', 'Some log message details', 'some payload details', e, 0);
 
         }
 
@@ -403,9 +403,9 @@ publicclass GlobalCache {
 
 /\*------------------------------------------------------------
 
-Author:        \&lt;Authors Name\&gt;
+Author:        \<Authors Name\>
 
-Company:       \&lt;company\&gt;
+Company:       \<company\>
 
 Description:   A global utility class for caching data
 
@@ -418,27 +418,27 @@ Test Class:
 
 History
 
-\&lt;Date\&gt;      \&lt;Authors Name\&gt;     \&lt;Brief Description of Change\&gt;
+\<Date\>      \<Authors Name\>     \<Brief Description of Change\>
 
 ------------------------------------------------------------\*/
 
     //maps to hold the record type info
 
-    privatestatic Map\&lt;String, Schema.SObjectType\&gt; gd;
+    privatestatic Map\<String, Schema.SObjectType\> gd;
 
-    privatestatic Map\&lt;String,Map\&lt;Id,Schema.RecordTypeInfo\&gt;\&gt; recordTypesById = new Map\&lt;String,Map\&lt;Id,Schema.RecordTypeInfo\&gt;\&gt;();
+    privatestatic Map\<String,Map\<Id,Schema.RecordTypeInfo\>\> recordTypesById = new Map\<String,Map\<Id,Schema.RecordTypeInfo\>\>();
 
-    privatestatic Map\&lt;String,Map\&lt;String,Schema.RecordTypeInfo\&gt;\&gt; recordTypesByName = new Map\&lt;String,Map\&lt;String,Schema.RecordTypeInfo\&gt;\&gt;();
+    privatestatic Map\<String,Map\<String,Schema.RecordTypeInfo\>\> recordTypesByName = new Map\<String,Map\<String,Schema.RecordTypeInfo\>\>();
 
-    privatestatic Map\&lt;String, String\&gt; profileMap = new Map\&lt;String,String\&gt;();
+    privatestatic Map\<String, String\> profileMap = new Map\<String,String\>();
 
     privatestaticvoid fillMapsForRecordTypeObject(string objectName) {
 
     /\*------------------------------------------------------------
 
-    Author:        \&lt;Authors Name\&gt;
+    Author:        \<Authors Name\>
 
-    Company:       \&lt;company\&gt;
+    Company:       \<company\>
 
     Description:   Function to fill record type map for objects not in cache
 
@@ -448,7 +448,7 @@ History
 
     History
 
-    \&lt;Date\&gt;      \&lt;Authors Name\&gt;     \&lt;Brief Description of Change\&gt;
+    \<Date\>      \<Authors Name\>     \<Brief Description of Change\>
 
     ------------------------------------------------------------\*/
 
@@ -474,9 +474,9 @@ History
 
     /\*------------------------------------------------------------
 
-    Author:        \&lt;Authors Name\&gt;
+    Author:        \<Authors Name\>
 
-    Company:       \&lt;company\&gt;
+    Company:       \<company\>
 
     Description:   Gives record type id from a given sObject and record type label
 
@@ -488,11 +488,11 @@ History
 
     History
 
-    \&lt;Date\&gt;      \&lt;Authors Name\&gt;     \&lt;Brief Description of Change\&gt;
+    \<Date\>      \<Authors Name\>     \<Brief Description of Change\>
 
     ------------------------------------------------------------\*/
 
-        // make sure we have this object&#39;s record types mapped
+        // make sure we have this object's record types mapped
 
         if (!recordTypesByName.containsKey(objectName))
 
@@ -500,9 +500,9 @@ History
 
         // now grab and return the requested id
 
-        Map\&lt;String,Schema.RecordTypeInfo\&gt; rtMap = recordTypesByName.get(objectName);
+        Map\<String,Schema.RecordTypeInfo\> rtMap = recordTypesByName.get(objectName);
 
-        if (rtMap != null &amp;&amp; rtMap.containsKey(recordTypeName)) {
+        if (rtMap != null && rtMap.containsKey(recordTypeName)) {
 
             return rtMap.get(recordTypeName).getRecordTypeId();
 
@@ -518,9 +518,9 @@ History
 
     /\*------------------------------------------------------------
 
-    Author:        \&lt;Authors Name\&gt;
+    Author:        \<Authors Name\>
 
-    Company:       \&lt;company\&gt;
+    Company:       \<company\>
 
     Description:   Gives record type name from a given sObject and record type id
 
@@ -532,11 +532,11 @@ History
 
     History
 
-    \&lt;Date\&gt;      \&lt;Authors Name\&gt;     \&lt;Brief Description of Change\&gt;
+    \<Date\>      \<Authors Name\>     \<Brief Description of Change\>
 
     ------------------------------------------------------------\*/
 
-        // make sure we have this object&#39;s record types mapped
+        // make sure we have this object's record types mapped
 
         if (!recordTypesById.containsKey(objectName))
 
@@ -544,9 +544,9 @@ History
 
         // now grab and return the requested id
 
-        Map\&lt;Id,Schema.RecordTypeInfo\&gt; rtMap = recordTypesById.get(objectName);
+        Map\<Id,Schema.RecordTypeInfo\> rtMap = recordTypesById.get(objectName);
 
-        if (rtMap != null &amp;&amp; rtMap.containsKey(recordTypeId)) {
+        if (rtMap != null && rtMap.containsKey(recordTypeId)) {
 
             return rtMap.get(recordTypeId).getName();
 
@@ -562,9 +562,9 @@ History
 
     /\*------------------------------------------------------------
 
-    Author:        \&lt;Authors Name\&gt;
+    Author:        \<Authors Name\>
 
-    Company:       \&lt;company\&gt;
+    Company:       \<company\>
 
     Description:   Get the profileName for the userProfileId
 
@@ -574,7 +574,7 @@ History
 
     History
 
-    \&lt;Date\&gt;      \&lt;Authors Name\&gt;     \&lt;Brief Description of Change\&gt;
+    \<Date\>      \<Authors Name\>     \<Brief Description of Change\>
 
     ------------------------------------------------------------\*/
 
@@ -597,9 +597,9 @@ History
 
 /\*------------------------------------------------------------
 
-Author:        \&lt;Authors Name\&gt;
+Author:        \<Authors Name\>
 
-Company:       \&lt;company\&gt;
+Company:       \<company\>
 
 Description:   A global constants class
 
@@ -607,7 +607,7 @@ Test Class:
 
 History
 
-\&lt;Date\&gt;      \&lt;Authors Name\&gt;     \&lt;Brief Description of Change\&gt;
+\<Date\>      \<Authors Name\>     \<Brief Description of Change\>
 
 ------------------------------------------------------------\*/
 
@@ -619,51 +619,51 @@ publicwithsharingclass GlobalConstants {
 
     //GENERAL
 
-    public static final String NONE = &#39;None&#39;;
+    public static final String NONE = 'None';
 
-    public static final String DEBUG = &#39;Debug&#39;;
+    public static final String DEBUG = 'Debug';
 
-    public static final String ERROR = &#39;Error&#39;;
+    public static final String ERROR = 'Error';
 
-    public static final String INFO = &#39;Info&#39;;
+    public static final String INFO = 'Info';
 
-    public static final String WARNING = &#39;Warning&#39;;
+    public static final String WARNING = 'Warning';
 
     //TESTING LITERALS
 
-    public static final String FNAME = &#39;Test&#39;;
+    public static final String FNAME = 'Test';
 
-    public static final String LNAME = &#39;User&#39;;
+    public static final String LNAME = 'User';
 
-    public static final String EMAIL = &#39;testuser@\&lt;company\&gt;.com&#39;;
+    public static final String EMAIL = 'testuser@\<company\>.com';
 
-    public static final String COMPANY = &#39;\&lt;company\&gt;.com&#39;;
+    public static final String COMPANY = '\<company\>.com';
 
-    public static final String TITLE = &#39;testuser&#39;;
+    public static final String TITLE = 'testuser';
 
-    public static final String USERNAME = &#39;testuser@\&lt;company\&gt;.com&#39;;
+    public static final String USERNAME = 'testuser@\<company\>.com';
 
-    public static final String ALIAS = &#39;testuser&#39;;
+    public static final String ALIAS = 'testuser';
 
-    public static final String LOCALE = &#39;en\_US&#39;;
+    public static final String LOCALE = 'en\_US';
 
-    public static final String TZSID = &#39;America/Mexico\_City&#39;;
+    public static final String TZSID = 'America/Mexico\_City';
 
-    public static final String EMAILENCODING = &#39;ISO-8859-1&#39;;
+    public static final String EMAILENCODING = 'ISO-8859-1';
 
-    public static final String NICKNAME = &#39;Test User&#39;;
+    public static final String NICKNAME = 'Test User';
 
     //PRODUCTS
 
-    public static final String EIS = &#39;EIS&#39;;
+    public static final String EIS = 'EIS';
 
-    public static final String UBM = &#39;UBM&#39;;
+    public static final String UBM = 'UBM';
 
-    public static final String DR = &#39;D/R&#39;;
+    public static final String DR = 'D/R';
 
     /\*\*\*\*\*\*\*ERROR MESSAGES\*\*\*\*\*\*\*/
 
-    public static final String MIN\_36\_MO\_TERM = &#39;does not have at least 36 month sow term.&#39;;
+    public static final String MIN\_36\_MO\_TERM = 'does not have at least 36 month sow term.';
 
 }
 
