@@ -3,21 +3,21 @@
     * @date          10/17/2016
     * @description   UTIL class for logging errors
 */
-public class UTIL_Logging{ 
+public class UTIL_Logging{
 
     //Id of current integration running during this transactino
     public static Id integrationLogId;
 
     public class Mapping_Exception extends Exception {}
     public class DML_Exception extends Exception {}
-    
+
     public static final String MAPPING_ERROR_TYPE = 'MAPPING DEFINITION ERROR';
     public static final String DML_ERROR_TYPE = 'DML ERROR';
     public static final String DEBUG_LEVEL_ERROR = 'Error';
     public static final String DEBUG_LEVEL_DEBUG = 'Debug';
     public static final String DEBUG_LEVEL_WARN = 'Warning';
     public static final String DEBUG_LEVEL_INFO = 'Info';
-    
+
     public Class ExceptionLog{
         Exception ex; //Exception Details
         String className; //Origin Class
@@ -35,7 +35,7 @@ public class UTIL_Logging{
             this.triggerName = triggerName;
             this.debugLevel = debugLevel;
         }
-        
+
         //Constructor with a database.upsertResults argument
         public ExceptionLog (Database.UpsertResult upResult, String className, String methodName, String triggerName, String debugLevel)
         {
@@ -80,10 +80,10 @@ public class UTIL_Logging{
         public Exception_Log__c createExceptionLog()
         {
             Exception_Log__c elog;
-            try 
+            try
             {
                 elog =  new Exception_Log__c(
-                        Class_Name__c = this.className, 
+                        Class_Name__c = this.className,
                         Method_Name__c = this.methodName,
                         Trigger_Name__c = this.triggerName,
                         Running_User__c = UserInfo.getUserId(),
@@ -117,13 +117,13 @@ public class UTIL_Logging{
             {
                 System.Debug('~~~UTIL_Logging.createExceptionLog:e: ' + e.getMessage());
             }
-            
+
             //return eLog
             return eLog;
         }
     }
 
-    public Static void logException(ExceptionLog log) 
+    public Static void logException(ExceptionLog log)
     {
         System.Debug('~~~UTIL_Logging.logException: ' + log);
         //exception passed in
@@ -152,7 +152,7 @@ public class UTIL_Logging{
         }
     }
 
-    public Static void logExceptions(List<ExceptionLog> logs) 
+    public Static void logExceptions(List<ExceptionLog> logs)
     {
         List<Exception_Log__c> eLogs = new List<Exception_Log__c>();
         for (ExceptionLog log: logs)
@@ -173,7 +173,7 @@ public class UTIL_Logging{
                 eLogs.add(eLog);
             }
         }
-        try 
+        try
         {
             //insert eLogs
             if (eLogs.size() > 0)
@@ -191,10 +191,11 @@ public class UTIL_Logging{
         string details = ex.getTypeName()+':'+ex.getMessage()+':'+ex.getStackTraceString();
         return details.left(Integer.ValueOf(Exception_Logging__c.getInstance().Exception_Details_Max__c));
     }
-    
-    public static Id createIntegrationLog(String logRecordType, String logPayload, String logProcessName, String logSource, String logTransactionId)
+
+
+    public static Id createIntegrationLog(String logRecordTypeName, String logPayload, String logProcessName, String logSource, String logTransactionId)
     {
-        //Retrieve the integration log custom setting 
+        //Retrieve the integration log custom setting
         Integration_Logging__c integrationParams = Integration_Logging__c.getInstance();
 
         //If logging is not enabled, break
@@ -205,16 +206,16 @@ public class UTIL_Logging{
 
         //Initialize a new integration log record
         Integration_Log__c intlog;
-        
-        try 
+
+        try
         {
             intLog = new Integration_Log__c();
-            intLog.RecordTypeId = logRecordType;
+            intLog.RecordTypeId = Schema.SObjectType.Integration_Log__c.getRecordTypeInfosByName().get(logRecordTypeName).getRecordTypeId();;
             intLog.Pay_Load__c = logPayload.left(Integer.ValueOf(integrationParams.Pay_Load_Max__c));
             intLog.Process_Name__c = logProcessName;
             intLog.Source_System__c = logSource;
             intLog.Transaction_Id__c = logTransactionId;
-            
+
             System.Debug('~~~intLog: ' + intLog);
             insert intLog;
         }
@@ -222,7 +223,7 @@ public class UTIL_Logging{
         {
             //Create a custom exception record
             UTIL_Logging.ExceptionLog log = new UTIL_Logging.ExceptionLog(e,'UTIL_Logging','createIntegrationLogForESBService','','Error');
-            UTIL_Logging.logException(log); 
+            UTIL_Logging.logException(log);
         }
         //Set the current Integration log id
         UTIL_Logging.integrationLogId = intLog.Id;
@@ -230,7 +231,7 @@ public class UTIL_Logging{
         //Return the log id
         return intLog.Id;
     }
-    
+
     //Create and return a custom mapping exception
     public static Exception createMappingException(String exMessage)
     {
@@ -246,5 +247,5 @@ public class UTIL_Logging{
         mappingException.setMessage(exMessage);
         return mappingException;
     }
-    
+
 }
