@@ -1,8 +1,8 @@
 ***Salesforce Application Logging Framework***
 
-To promote reuse and provide a framework for handling common coding patterns, the team should use the following classes.  They will be created first and reused by the whole team.  Additions to the class functionality will be communicated to the wider team.
+To promote good error handling practices reuse and provide a framework for handling common coding patterns, the team should use the following package.
 
-In order to use the ApplicationLog class there are 3 things you have to do
+In order to use the framework there are 3 things you have to do
 
 1. Deploy the package into your org:  
    Installation Link: https://login.salesforce.com/packaging/installPackage.apexp?p0=04t2L000000RMJw
