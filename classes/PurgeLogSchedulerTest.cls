@@ -15,15 +15,15 @@ private class PurgeLogSchedulerTest {
 
      //Initialize the custom settings records
      initializeCustomSettings();
-     
+
       /*Create Integration Log*/
       Map <String,Schema.RecordTypeInfo> integrationLogRecordTypes = Integration_Log__c.sObjectType.getDescribe().getRecordTypeInfosByName();
       Id inboundRT = integrationLogRecordTypes.get('INBOUND').getRecordTypeId();
       UTIL_Logging.integrationLogId = UTIL_Logging.createIntegrationLog(
-                                                         inboundRT, 
-                                                         'Test Payload', 
-                                                         'Test Process Name', 
-                                                         'Test Source Name', 
+                                                         inboundRT,
+                                                         'Test Payload',
+                                                         'Test Process Name',
+                                                         'Test Source Name',
                                                          'Test Transaction Id'
                                                        );
 
@@ -34,14 +34,14 @@ private class PurgeLogSchedulerTest {
       //Create 10 Exception log records
       for (Integer i=1; i<=10; i++) {
 
-         //Initialize a custom mapping exception 
+         //Initialize a custom mapping exception
          Exception e = UTIL_Logging.createMappingException(
             'Test Mapping Error: ' + +' ' + String.ValueOf(i)
          );
 
          //Create a exception log record
          UTIL_Logging.ExceptionLog log = new UTIL_Logging.ExceptionLog(
-            e, 
+            e,
             'PurgeLogSchedulerTest',
             'testScheduledPurgeLogs',
             '',
@@ -49,7 +49,7 @@ private class PurgeLogSchedulerTest {
          );
 
          //add exception log to list
-         logs.add(log); 
+         logs.add(log);
       }
 
       //Insert exception logs
@@ -68,7 +68,7 @@ private class PurgeLogSchedulerTest {
 
       // Schedule the test job
       String jobId = System.schedule('testScheduledPurgeLogs', CRON_EXP, new PurgeLogScheduler());
-         
+
       // Get the information from the CronTrigger API object
       CronTrigger ct = [SELECT Id, CronExpression, TimesTriggered, NextFireTime FROM CronTrigger WHERE id = :jobId];
 
@@ -82,9 +82,9 @@ private class PurgeLogSchedulerTest {
       System.assertEquals('2050-03-15 00:00:00', String.valueOf(ct.NextFireTime));
 
       //Process the scheduled & batch purge jobs
-      Test.stopTest();    
+      Test.stopTest();
    }
-   
+
    private static void initializeCustomSettings()
    {
      //Create exception logging Custom Setting Record
@@ -97,8 +97,8 @@ private class PurgeLogSchedulerTest {
                                                              Warning__c = true,
                                                              Debug__c = true,
                                                              Error__c = true
-                                                         );        
-     //insert Exception_Logging__c 
+                                                         );
+     //insert Exception_Logging__c
      insert exceptionParams;
 
      //Create integration log custom setting record

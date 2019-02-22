@@ -53,9 +53,18 @@
         <name>CustomTab</name>
     </types>
     <types>
+        <members>Exception_Log__c-Exception Log Layout</members>
+        <members>Integration_Log__c-Integration Log Layout</members>
+        <name>Layout</name>
+    </types>
+    <types>
         <members>Exception_Log__c.All</members>
         <members>Integration_Log__c.All</members>
         <name>ListView</name>
+    </types>
+    <types>
+        <members>Admin</members>
+        <name>Profile</name>
     </types>
     <types>
         <members>Integration_Log__c.INBOUND</members>

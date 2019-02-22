@@ -210,7 +210,7 @@ public class UTIL_Logging{
         try
         {
             intLog = new Integration_Log__c();
-            intLog.RecordTypeId = Schema.SObjectType.Integration_Log__c.getRecordTypeInfosByName().get(logRecordTypeName).getRecordTypeId();;
+            intLog.RecordTypeId = Schema.SObjectType.Integration_Log__c.getRecordTypeInfosByName().get(logRecordTypeName).getRecordTypeId();
             intLog.Pay_Load__c = logPayload.left(Integer.ValueOf(integrationParams.Pay_Load_Max__c));
             intLog.Process_Name__c = logProcessName;
             intLog.Source_System__c = logSource;

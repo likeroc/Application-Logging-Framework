@@ -7,6 +7,7 @@ In order to use the ApplicationLog class there are 3 things you have to do
 1. Deploy the package into your org
 2. Populate the Custom Settings 'Exception Logging' & 'Integration Logging'
 3. Schedule the class PurgeLogScheduler to run daily in your org
+4. Modify your system admin profiles to give view permission to the tabs *Integration Logs* & *Exception Logs*
 
 | **Artefact** | **Purpose** |
 | --- | --- |
@@ -32,7 +33,7 @@ try {
   throw new MyException('some bad stuff just happened');
 }
 catch(MyException e) {
-  ExceptionLog ex = new ExceptionLog(ex, 'MyClass', 'MyMethod', '', UTIL_Logging.DEBUG_LEVEL_ERROR);
+  UTIL_Logging.ExceptionLog ex = new UTIL_Logging.ExceptionLog(ex, 'MyClass', 'MyMethod', '', UTIL_Logging.DEBUG_LEVEL_ERROR);
   UTIL_Logging.logException(ex);
 }
 
@@ -78,17 +79,35 @@ Requires two classes:
 
 **Application Log User Interface**
 
-*Info*
+*Exception Log - Warn*
+
+try {
+	throw UTIL_Logging.createMappingException('This could be bad');
+} catch (Exception ex) {  
+    UTIL_Logging.ExceptionLog exLog = new UTIL_Logging.ExceptionLog(ex, 'MyClass', 'MyMethod', '', UTIL_Logging.DEBUG_LEVEL_WARN);
+  	UTIL_Logging.logException(exLog);
+}
 
 The screenshot below shows an example for information logged by the application that developers are responsible for unit testing as part of their test classes. In the example below the developer is logging information about an Apex batch job for auditing purposes.  They have included time taken for the job to run and some useful attributes for support.
-![Info](screenShots/Info_Log.png)
+![Warning](screenShots/Warn_Log.png)
 
-*Debug*
+*Exception Log - Error*
 
-The screenshot below shows an example for debug logged by the application that developers are d for unit testing as part of their test classes. In the example below the developer is logging an Apex callout including the payload and timing criteria.
-![Debug](screenShots/Debug_Log.png)
-
-*Error Log*
+try {
+	throw UTIL_Logging.createMappingException('This is bad');
+} catch (Exception ex) {  
+    UTIL_Logging.ExceptionLog exLog = new UTIL_Logging.ExceptionLog(ex, 'MyClass', 'MyMethod', '', UTIL_Logging.DEBUG_LEVEL_ERROR);
+  	UTIL_Logging.logException(exLog);
+}
 
 The screenshot below shows an example for errors logged by the application that developers are responsible for unit testing as part of their test classes
 ![Error](screenShots/Error_Log.png)
+
+*Integration Log*
+
+HttpRequest req = new HttpRequest();
+req.setbody('A Inbound Request Body');
+UTIL_Logging.createIntegrationLog('INBOUND', req.getBody(), 'Inbound Lead', 'ETL', 'UniqueTransactionId20xx');
+
+The screenshot below shows an example for errors logged by the application that developers are responsible for unit testing as part of their test classes
+![Error](screenShots/Integration_Log.png)
