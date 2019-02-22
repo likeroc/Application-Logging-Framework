@@ -81,14 +81,14 @@ Requires two classes:
 *Info*
 
 The screenshot below shows an example for information logged by the application that developers are responsible for unit testing as part of their test classes. In the example below the developer is logging information about an Apex batch job for auditing purposes.  They have included time taken for the job to run and some useful attributes for support.
-![Info](images/Info_Log.png)
+![Info](screenShots/Info_Log.png)
 
 *Debug*
 
 The screenshot below shows an example for debug logged by the application that developers are d for unit testing as part of their test classes. In the example below the developer is logging an Apex callout including the payload and timing criteria.
-![Debug](images/Debug_Log.png)
+![Debug](screenShots/Debug_Log.png)
 
 *Error Log*
 
 The screenshot below shows an example for errors logged by the application that developers are responsible for unit testing as part of their test classes
-![Error](images/Error_Log.png)
+![Error](screenShots/Error_Log.png)
