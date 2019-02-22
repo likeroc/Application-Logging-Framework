@@ -94,7 +94,7 @@ try {
 }
 ```
 The screenshot below shows an example for errors logged by the application that developers are responsible for unit testing as part of their test classes
-![Error](screenShots/Error_Log.png)
+![Error](screenShots/Exception_Log.png)
 
 **Integration Log**
 ```
