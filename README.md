@@ -34,10 +34,10 @@ In order to use the framework there are 3 things you have to do
 
 | **Field** | **Type** | **Required** | **Description** |
 | --- | --- | --- | --- |
-| Info | Picklist | Y | Error, Info, Warning, Debug |
-| Warning | Picklist | Y | Error, Info, Warning, Debug |
-| Debug | Picklist | Y | Error, Info, Warning, Debug |
-| Error | Picklist | Y | Error, Info, Warning, Debug |
+| Info | Picklist | Y | Log info level logs? |
+| Warning | Picklist | Y | Log Warning level logs? |
+| Debug | Picklist | Y | Log Debug level logs? |
+| Error | Picklist | Y | Log Error level logs? |
 | Exception Description Max | Number (18) | N | Max length of exception description |
 | Exception Details Max | Number (18) | N | Max length of exception details |
 | Exception Logs Purge (Days) | Number (18) | N | How long to keep the exceptions logs in the system |
