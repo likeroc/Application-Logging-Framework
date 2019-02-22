@@ -7,7 +7,7 @@ In order to use the ApplicationLog class there are 3 things you have to do
 1. Deploy the package into your org
 2. Populate the Custom Settings 'Exception Logging' & 'Integration Logging'
 3. Schedule the class PurgeLogScheduler to run daily in your org
-4. Modify your system admin profiles to give view permission to the tabs *Integration Logs* & *Exception Logs*
+4. Modify your system admin profiles to give view permission to the tabs **Integration Logs** & **Exception Logs**
 
 | **Artefact** | **Purpose** |
 | --- | --- |
@@ -18,13 +18,13 @@ In order to use the ApplicationLog class there are 3 things you have to do
 
 **How Exception Logging Works**
 
-- You use the overloaded constructor *ExceptionLog* in the class *UTIL_Logging* to create a exceptionLog instance by passing in:
+- You use the overloaded constructor **ExceptionLog** in the class **UTIL_Logging** to create a exceptionLog instance by passing in:
     1. The Apex Exception or Database.UpsertResult
     2. Class name
     3. Method name
     4. Trigger name (optional)
     5. Message severity
-- The *ExceptionLog* class has an overloaded method *LogMessage* that you can pass 1 or more exceptionLog instances
+- The **ExceptionLog** class has an overloaded method **LogMessage** that you can pass 1 or more exceptionLog instances
 - Triggers can build up a collection of wrapper objects and pass them
 - The utility class checks against the Exception_Logging__c custom setting to see if the type of message should be logged based on their current values allowing support staff to turn on/off debug levels
 - Scheduled nightly batch job to purge records older than x days (from custom setting)
@@ -52,7 +52,7 @@ catch(MyException e) {
 
 **How Integration Logging Works**
 
-- You use the method *createIntegrationLog* in class *UTIL_Logging* by passing the in the
+- You use the method **createIntegrationLog** in class **UTIL_Logging** by passing the in the
   1. recordTypeId (optional integration record type)
   2. Payload
   3. Process Name
@@ -73,13 +73,13 @@ UTIL_Logging.createIntegrationLog('INBOUND', req.getBody(), 'Inbound Lead', 'ETL
 **Purge Application Log**
 
 Requires two classes:
-  1. Batchable class *PurgeLogs* to do the work
-  2. Schedulable class *PurgeLogScheduler* to schedule the job
+  1. Batchable class **PurgeLogs** to do the work
+  2. Schedulable class **PurgeLogScheduler** to schedule the job
 
 
-**Application Log User Interface**
+***Application Log User Interface***
 
-*Exception Log - Warn*
+**Exception Log - Warn**
 
 try {
 	throw UTIL_Logging.createMappingException('This could be bad');
@@ -91,7 +91,7 @@ try {
 The screenshot below shows an example for information logged by the application that developers are responsible for unit testing as part of their test classes. In the example below the developer is logging information about an Apex batch job for auditing purposes.  They have included time taken for the job to run and some useful attributes for support.
 ![Warning](screenShots/Warn_Log.png)
 
-*Exception Log - Error*
+**Exception Log - Error**
 
 try {
 	throw UTIL_Logging.createMappingException('This is bad');
@@ -103,7 +103,7 @@ try {
 The screenshot below shows an example for errors logged by the application that developers are responsible for unit testing as part of their test classes
 ![Error](screenShots/Error_Log.png)
 
-*Integration Log*
+**Integration Log**
 
 HttpRequest req = new HttpRequest();
 req.setbody('A Inbound Request Body');
