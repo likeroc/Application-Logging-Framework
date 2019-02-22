@@ -4,7 +4,7 @@ To promote reuse and provide a framework for handling common coding patterns, th
 
 In order to use the ApplicationLog class there are 3 things you have to do
 
-1. Deploy the package into your org:
+1. Deploy the package into your org:  
    Installation Link: https://login.salesforce.com/packaging/installPackage.apexp?p0=04t2L000000RMJw
 2. Populate the Custom Settings 'Exception Logging' & 'Integration Logging'
 3. Schedule the class PurgeLogScheduler to run daily in your org
