@@ -53,8 +53,6 @@ In order to use the framework there are 3 things you have to do
   5. Log Transaction Id
 - The utility class checks against the Integration_Logging__c custom setting to see if the type of message should be logged based on their current values set and the max character limit to cap it at.
 
-UTIL_Logging.createIntegrationLog('INBOUND', req.getBody(), 'Inbound Lead', 'ETL', 'UniqueTransactionId20xx');
-
 **Integration Logging Setting**
 
 | **Field** | **Type** | **Required** | **Description** |
