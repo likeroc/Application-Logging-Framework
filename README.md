@@ -25,8 +25,8 @@ In order to use the framework there are 3 things you have to do
     3. Method name
     4. Trigger name (optional)
     5. Message severity
-- The **ExceptionLog** class has an overloaded method **LogMessage** that you can pass 1 or more exceptionLog instances
-- Triggers can build up a collection of wrapper objects and pass them
+- The **ExceptionLog** class has two methods **LogMessage** & **LogMessages** that you can pass 1 or more exceptionLog instances
+- Triggers can build up a collection of wrapper objects and pass them into **LogMessages** as a list
 - The utility class checks against the Exception_Logging__c custom setting to see if the type of message should be logged based on their current values allowing support staff to turn on/off debug levels
 - Scheduled nightly batch job to purge records older than x days (governed by custom setting)
 

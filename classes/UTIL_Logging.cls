@@ -53,7 +53,7 @@ public class UTIL_Logging{
         }
 
         //Check if logging is enabled for this user and with the appropriate debug level
-        public Boolean isLoggingEnabled()
+        private Boolean isLoggingEnabled()
         {
             Exception_Logging__c exceptionParams = Exception_Logging__c.getInstance();
             Boolean loggingEnabled = exceptionParams.Logging_Enabled__c;
@@ -77,7 +77,7 @@ public class UTIL_Logging{
         }
 
         //Return a new new Exception_Log__c record for this exception
-        public Exception_Log__c createExceptionLog()
+        private Exception_Log__c createExceptionLog()
         {
             Exception_Log__c elog;
             try
