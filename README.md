@@ -79,7 +79,6 @@ try {
   	UTIL_Logging.logException(exLog);
 }
 ```
-The screenshot below shows an example for information logged by the application that developers are responsible for unit testing as part of their test classes. In the example below the developer is logging information about an Apex batch job for auditing purposes.  They have included time taken for the job to run and some useful attributes for support.
 ![Warning](screenShots/Warn_Log.png)
 
 **Exception Log - Error**
@@ -91,7 +90,6 @@ try {
   	UTIL_Logging.logException(exLog);
 }
 ```
-The screenshot below shows an example for errors logged by the application that developers are responsible for unit testing as part of their test classes
 ![Error](screenShots/Exception_Log.png)
 
 **Integration Log**
@@ -100,5 +98,4 @@ HttpRequest req = new HttpRequest();
 req.setbody('A Inbound Request Body');
 UTIL_Logging.createIntegrationLog('INBOUND', req.getBody(), 'Inbound Lead', 'ETL', 'UniqueTransactionId20xx');
 ```
-The screenshot below shows an example for errors logged by the application that developers are responsible for unit testing as part of their test classes
 ![Error](screenShots/Integration_Log.png)
