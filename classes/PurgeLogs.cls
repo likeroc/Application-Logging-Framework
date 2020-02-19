@@ -1,26 +1,26 @@
 /**
   * @author        Saumil Bapat
   * @date          10/28/2016
-  * @description   Batch class to delete old logs
+  * @description   批处理类删除老日志
 */
 global class PurgeLogs implements Database.Batchable<sObject>
 {
-   //Type of log to delete
+   //删除日志的类型
    global enum LogType{INTEGRATION_LOG, EXCEPTION_LOG}
 
-   //Query of logs to delete
+   //查询日志删除
    global String query;
 
-   //Query of logs to delete
+   //查询日志删除
    global LogType type;
 
-   //Constructor to instantiate the query
+   //构造函数
    global PurgeLogs(LogType type)
    {
-      //Retrieve the exception logging settings
+      //获取异常日志的设置
       Exception_Logging__c exceptionParams = Exception_Logging__c.getInstance();
 
-      //Retrieve the integration logging settings
+      //获取集成日志的设置
       Integration_Logging__c integrationParams = Integration_Logging__c.getInstance();
       
       if (type == LogType.INTEGRATION_LOG)
