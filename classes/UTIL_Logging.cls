@@ -1,7 +1,7 @@
 /**
     * @author        Saumil Bapat
     * @date          10/17/2016
-    * @description   UTIL class for logging errors
+    * @description   UTIL 类用来记录日志
 */
 public class UTIL_Logging{
 
