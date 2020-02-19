@@ -5,7 +5,7 @@
 */
 public class UTIL_Logging{
 
-    //Id of current integration running during this transactino
+    //集成日志Id
     public static Id integrationLogId;
 
     public class Mapping_Exception extends Exception {}
@@ -46,14 +46,14 @@ public class UTIL_Logging{
             this.debugLevel = debugLevel;
             if(upResult != null && upResult.getErrors() != null)
             {
-                //Add a custom DML Exception type
+                //添加一个自定义的DML异常类型
                 String dmlErrorMessage = String.valueOf(upResult.getErrors());
                 this.ex = UTIL_Logging.createDMLException(dmlErrorMessage);
             }
         }
 
-        //Check if logging is enabled for this user and with the appropriate debug level
-        private Boolean isLoggingEnabled()
+        //检查当前用户日志是否启用，及具有的debug级别
+        public Boolean isLoggingEnabled()
         {
             Exception_Logging__c exceptionParams = Exception_Logging__c.getInstance();
             Boolean loggingEnabled = exceptionParams.Logging_Enabled__c;
@@ -76,8 +76,8 @@ public class UTIL_Logging{
             return loggingEnabled;
         }
 
-        //Return a new new Exception_Log__c record for this exception
-        private Exception_Log__c createExceptionLog()
+        //返回一个新的Exception_Log__c异常记录
+        public Exception_Log__c createExceptionLog()
         {
             Exception_Log__c elog;
             try
@@ -129,7 +129,7 @@ public class UTIL_Logging{
         //exception passed in
         Exception ex = log.ex;
 
-        //Create new exception record
+        //初始化一条异常日志记录
         Exception_Log__c elog;
 
         if (log.isLoggingEnabled())
@@ -141,7 +141,7 @@ public class UTIL_Logging{
         try
         {
             system.debug('~~~eLog: ' + eLog);
-            //Insert exception record
+            
             if (eLog != null)
                 insert eLog;
         }
@@ -165,11 +165,11 @@ public class UTIL_Logging{
                 system.debug('~~~ex: ' + ex);
                 system.debug('~~~ex message: ' + ex.getMessage());
 
-                //Create new exception record
+                //创建异常日志
                 Exception_Log__c eLog = log.createExceptionLog();
                 system.debug('~~~Exception Log: ' + eLog);
 
-                //Add new log to list of logs to insert
+                //添加一条日志到集合里，准备插入到数据库
                 eLogs.add(eLog);
             }
         }
@@ -195,16 +195,16 @@ public class UTIL_Logging{
 
     public static Id createIntegrationLog(String logRecordTypeName, String logPayload, String logProcessName, String logSource, String logTransactionId)
     {
-        //Retrieve the integration log custom setting
+        //获取集成日志自定义设置
         Integration_Logging__c integrationParams = Integration_Logging__c.getInstance();
 
-        //If logging is not enabled, break
+        //如果日志没有启用，返回
         if(!integrationParams.Logging_Enabled__c)
         {
           return null;
         }
 
-        //Initialize a new integration log record
+        //初始化一条集成日志记录
         Integration_Log__c intlog;
 
         try
@@ -221,18 +221,19 @@ public class UTIL_Logging{
         }
         catch (Exception e)
         {
-            //Create a custom exception record
+            //创建一条异常记录
             UTIL_Logging.ExceptionLog log = new UTIL_Logging.ExceptionLog(e,'UTIL_Logging','createIntegrationLogForESBService','','Error');
             UTIL_Logging.logException(log);
         }
-        //Set the current Integration log id
+        //设置当前集成日志ID
         UTIL_Logging.integrationLogId = intLog.Id;
 
-        //Return the log id
+        //返回日志ID
         return intLog.Id;
     }
 
     //Create and return a custom mapping exception
+    //创建并返回一个自定义的mapping异常
     public static Exception createMappingException(String exMessage)
     {
         Exception mappingException = new UTIL_Logging.Mapping_Exception(UTIL_Logging.MAPPING_ERROR_TYPE);
@@ -241,6 +242,7 @@ public class UTIL_Logging{
     }
 
     //Create and return a custom dml Exception
+    //创建并返回一个自定义dml异常
     public static Exception createDMLException(String exMessage)
     {
         Exception mappingException = new UTIL_Logging.DML_Exception(UTIL_Logging.DML_ERROR_TYPE);
