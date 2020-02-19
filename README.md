@@ -47,11 +47,16 @@ In order to use the framework there are 3 things you have to do
     4. 触发器名（可选）
     5. Message severity
 - The **ExceptionLog** class has two methods **LogMessage** & **LogMessages** that you can pass 1 or more exceptionLog instances
+- ExceptionLog类有两个方法logException和logExceptions，你可以传递一个或多个exceptionLog
 - Triggers can build up a collection of wrapper objects and pass them into **LogMessages** as a list
+- 触发器可以创建一个包装类集合，以集合的方式传递到logExceptions
 - The utility class checks against the Exception_Logging__c custom setting to see if the type of message should be logged based on their current values allowing support staff to turn on/off debug levels
+- 公共类检查自定义设置Exception_Logging__c，来确定哪种类型的信息需要被记录
 - Scheduled nightly batch job to purge records older than x days (governed by custom setting)
+- 计划进行夜间批处理作业以清除x天之前的记录
 
 **Exception Logging Setting**
+**异常日志设置**
 
 | **Field** | **Type** | **Required** | **Description** |
 | --- | --- | --- | --- |
@@ -64,34 +69,55 @@ In order to use the framework there are 3 things you have to do
 | Exception Logs Purge (Days) | Number (18) | N | How long to keep the exceptions logs in the system |
 | Logging Enabled | Boolean | N | Is logging enabled |
 
+| **字段** | **类型** | **是否必填** | **描述** |
+| --- | --- | --- | --- |
+| Info | Picklist | Y | Log info level logs? |
+| Warning | Picklist | Y | Log Warning level logs? |
+| Debug | Picklist | Y | Log Debug level logs? |
+| Error | Picklist | Y | Log Error level logs? |
+| Exception Description Max | Number (18) | N | Max length of exception description |
+| Exception Details Max | Number (18) | N | Max length of exception details |
+| Exception Logs Purge (Days) | Number (18) | N | How long to keep the exceptions logs in the system |
+| Logging Enabled | Boolean | N | Is logging enabled |
+
 **How Integration Logging Works**
+**集成日志如何工作**
 
 - You use the method **createIntegrationLog** in class **UTIL_Logging** by passing the in the
+- 你可以使用UTIL_Logging类的createIntegrationLog方法，传入如下参数
   1. recordTypeId (optional integration record type)
+  1. 记录类型ID（可选）
   2. Payload
   3. Process Name
   4. Log Source
+  4. 日志来源
   5. Log Transaction Id
+  5. 日志事务ID
 - The utility class checks against the Integration_Logging__c custom setting to see if the type of message should be logged based on their current values set and the max character limit to cap it at.
+- 公共类检查自定义设置Integration_Logging__c，来判断是否那种类型的信息需要被记录及最大字符限制为
 
 **Integration Logging Setting**
+**集成日志设置**
 
-| **Field** | **Type** | **Required** | **Description** |
+| **字段** | **类型** | **是否必填** | **描述** |
 | --- | --- | --- | --- |
 | Pay Load Max | Number (18) | N | Max length of payload details to store |
 | Integration Logs Purge Days | Number (18) | N | How long to keep the exceptions logs in the system |
 | Logging Enabled | Boolean | N | Is logging enabled |
 
-**Purge Application Log**
+**清除应用程序日志**
 
 Requires two classes:
+需要两个类：
   1. Batchable class **PurgeLogs** to do the work
+  1. 批处理类PurgeLogs工作
   2. Schedulable class **PurgeLogScheduler** to schedule the job
+  2. Schedulable class **PurgeLogScheduler** 来计划任务
 
 
-***Application Log User Interface***
+***应用程序日志界面***
 
-**Exception Log - Warn**
+**异常日志 - 警告**
 ```
 try {
 	throw UTIL_Logging.createMappingException('This could be bad');
@@ -102,7 +128,7 @@ try {
 ```
 ![Warning](screenShots/Warn_Log.png)
 
-**Exception Log - Error**
+**异常日志 - 报错**
 ```
 try {
 	throw UTIL_Logging.createMappingException('This is bad');
@@ -113,7 +139,7 @@ try {
 ```
 ![Error](screenShots/Exception_Log.png)
 
-**Integration Log**
+**集成日志**
 ```
 HttpRequest req = new HttpRequest();
 req.setbody('A Inbound Request Body');
